@@ -8,7 +8,7 @@ filetype plugin indent on
 
 set guifont=Monaco:h14:cANSI
 
-set columns=90 lines=30
+" set columns=90 lines=30
 set guicursor+=n-v-c:blinkon0
 
 set guioptions-=m
@@ -29,6 +29,8 @@ autocmd InsertEnter * set nocul
 autocmd InsertLeave * set cul
 
 " Basic ======================================================================
+
+set noswapfile
 
 set timeoutlen=1000 ttimeoutlen=0
 set laststatus=2
@@ -70,17 +72,25 @@ nnoremap <C-y> 3<C-y>
 vnoremap <C-e> 3<C-e>
 vnoremap <C-y> 3<C-y>
 
+" Window resizing
+nnoremap <C-h> <C-w><
+nnoremap <C-j> <C-w>-
+nnoremap <C-k> <C-w>+
+nnoremap <C-l> <C-w>>
+
 " Leader Commands ==============================================================
 
 let mapleader="\<Space>"
 let maplocalleader="\<Space>"
 
-nnoremap <Leader>ev :e $MYVIMRC<CR>
+nnoremap <Leader>ev :e ~/vimfiles/.vimrc<CR>
 nnoremap <Leader>sv :w!<CR>:so $MYVIMRC<CR>
 
-nnoremap <Leader>thl :set background=light<CR>
+nnoremap <Leader>thl :let g:ayucolor="light"<CR>:colorscheme ayu<CR>
 			\ :highlight ColorColumn ctermbg=Gray guibg=Gray<CR>
-nnoremap <Leader>thd :set background=dark<CR>
+nnoremap <Leader>thm :let g:ayucolor="mirage"<CR>:colorscheme ayu<CR>
+			\ :highlight ColorColumn ctermbg=Gray guibg=Gray<CR>
+nnoremap <Leader>thd :let g:ayucolor="dark"<CR>:colorscheme ayu<CR>
 			\ :highlight ColorColumn ctermbg=Gray guibg=Gray<CR>
 
 " Buffer Navigation ============================================================
@@ -124,4 +134,67 @@ autocmd BufRead,BufNewFile *.txt setlocal filetype=txt
 autocmd BufRead,BufNewFile *.jsx setlocal filetype=javascript
 autocmd BufRead,BufNewFile CMakeLists.txt setlocal filetype=cmake
 
-nnoremap <C-T> :CtrlPTag<CR>
+function! g:GitRepoRoot()
+    let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
+    return v:shell_error ? '' : root
+endfunction
+
+function! g:RunCppScript(script_name)
+    let git_root = g:GitRepoRoot()
+    let separator = strlen(git_root) > 0 ? '/' : ''
+    execute '!start cmd /k "py '
+        \ . g:GitRepoRoot() . separator . 'scripts/'
+        \ . a:script_name . '.py" && pause && exit'
+endfunction
+
+nnoremap <leader>r :call RunCppScript('run')<CR><CR>
+nnoremap <leader>b :call RunCppScript('build')<CR><CR>
+nnoremap <leader>tt :call RunCppScript('test')<CR><CR>
+
+nnoremap <leader>gs :Gstatus<CR>
+nnoremap <leader>gw :Gwrite<CR>
+nnoremap <leader>ge :Gedit<CR>
+nnoremap <leader>gc :Gcommit<CR>
+nnoremap <leader>gl :Glog<CR>
+
+" Add a space and then dashes to the end of the line (79)
+function! g:EndLineWithDashes()
+    let current_line = getline(".")
+    let current_line_length = strlen(current_line)
+    if current_line_length < 78
+        call setline(line("."), current_line . ' ')
+        let num_dashes = 79 - current_line_length - 1
+        execute "normal " . num_dashes . "A-"
+    endif
+endfunction
+
+nnoremap <leader>- I//<Esc>:call g:EndLineWithDashes()<CR>
+
+" - semicolon after class, struct, enum etc. closing brace
+" also proper namespace closing with a comment
+
+" -----------------------------------------------------------------------------
+" Add backslashes at column 79 of every line of visual selection
+
+function! g:AddBackslashes()
+    let saved_virtualedit = &virtualedit
+    set virtualedit=all
+    execute 'normal 79|i\'
+    execute "set virtualedit=" . saved_virtualedit
+endfunction
+
+vnoremap <leader>as :call g:AddBackslashes()<CR>
+
+function! g:RemoveBackslashes()
+    execute 'normal $xdiw'
+endfunction
+
+vnoremap <leader>rs :call g:RemoveBackslashes()<CR>
+
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_use_caching=0
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/](.git|.hg|.svn|out|node_modules)$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+    \ }
