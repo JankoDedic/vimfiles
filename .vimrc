@@ -51,9 +51,9 @@ vnoremap : ;
 
 set backspace=indent,eol,start
 
-set tabstop=4
-set softtabstop=4 expandtab
-set shiftwidth=4
+set tabstop=2
+set softtabstop=2 expandtab
+set shiftwidth=2
 
 set wildmenu
 
