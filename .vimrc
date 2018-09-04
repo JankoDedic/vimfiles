@@ -60,6 +60,10 @@ set wildmenu
 set listchars=tab:→\ ,trail:·,precedes:«,extends:»
 set list
 
+" Searches become case sensitive only if uppercase letter appears
+set ignorecase
+set smartcase
+
 " Type optimizations ===========================================================
 
 set formatoptions-=r formatoptions-=c formatoptions-=o
