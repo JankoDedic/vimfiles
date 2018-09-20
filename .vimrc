@@ -6,7 +6,7 @@ filetype plugin indent on
 
 " Appearance =================================================================
 
-set guifont=Monaco:h14:cANSI
+set guifont=Monaco:h13:cANSI
 
 " set columns=90 lines=30
 set guicursor+=n-v-c:blinkon0
