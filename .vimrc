@@ -198,7 +198,7 @@ vnoremap <leader>rs :call g:RemoveBackslashes()<CR>
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_use_caching=0
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/](.git|.hg|.svn|out|node_modules)$',
+    \ 'dir':  '\v[\/](.git|.hg|.svn|.next|out|node_modules)$',
     \ 'file': '\v\.(exe|so|dll)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
