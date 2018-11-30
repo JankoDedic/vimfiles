@@ -64,6 +64,10 @@ set list
 set ignorecase
 set smartcase
 
+set foldmethod=syntax
+set foldlevelstart=99
+nnoremap <s-tab> za
+
 " Type optimizations ===========================================================
 
 set formatoptions-=r formatoptions-=c formatoptions-=o
