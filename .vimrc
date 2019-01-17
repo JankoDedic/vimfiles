@@ -6,7 +6,7 @@ filetype plugin indent on
 
 " Appearance =================================================================
 
-set guifont=Monaco:h13:cANSI
+set guifont=Monaco:h14:cANSI
 
 " set columns=90 lines=30
 set guicursor+=n-v-c:blinkon0
@@ -147,17 +147,32 @@ function! g:GitRepoRoot()
     return v:shell_error ? '' : root
 endfunction
 
-function! g:RunCppScript(script_name)
-    let git_root = g:GitRepoRoot()
-    let separator = strlen(git_root) > 0 ? '/' : ''
-    execute '!start cmd /k "py '
-        \ . g:GitRepoRoot() . separator . 'scripts/'
-        \ . a:script_name . '.py" && pause && exit'
+" function! g:RunCppScript(script_name)
+"     let separator = strlen(git_root) > 0 ? '/' : ''
+"     execute '!start cmd /k "py '
+"         \ . g:GitRepoRoot() . separator . 'scripts/'
+"         \ . a:script_name . '.py" && pause && exit'
+" endfunction
+
+function! g:RunCppScript2(script_name)
+  let git_repo_root = g:GitRepoRoot()
+  let g:cpp_scripts = {
+      \ 'init': 'cd ' . git_repo_root
+      \  . ' && mkdir out && cd out & cmake ..'
+      \  . ' -G"Visual Studio 15 2017 Win64"'
+      \  . ' -DCMAKE_TOOLCHAIN_FILE=D:\vcpkg\scripts\buildsystems\vcpkg.cmake',
+      \ 'run': git_repo_root . '/out/Debug/main.exe',
+      \ 'build': 'cmake --build ' . git_repo_root . '/out'
+      \        . ' -- /nologo /verbosity:quiet',
+      \ 'test': git_repo_root . '/out/Debug/test.exe',
+      \ }
+  execute '!start cmd /k ' . g:cpp_scripts[a:script_name] . ' & pause & exit'
 endfunction
 
-nnoremap <leader>r :call RunCppScript('run')<CR><CR>
-nnoremap <leader>b :call RunCppScript('build')<CR><CR>
-nnoremap <leader>tt :call RunCppScript('test')<CR><CR>
+nnoremap <leader>i :call RunCppScript2('init')<CR><CR>
+nnoremap <leader>r :call RunCppScript2('run')<CR><CR>
+nnoremap <leader>b :call RunCppScript2('build')<CR><CR>
+nnoremap <leader>tt :call RunCppScript2('test')<CR><CR>
 
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gw :Gwrite<CR>
@@ -206,3 +221,9 @@ let g:ctrlp_custom_ignore = {
     \ 'file': '\v\.(exe|so|dll)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
