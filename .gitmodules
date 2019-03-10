@@ -49,3 +49,9 @@
 [submodule "bundle/vim-sleuth"]
 	path = bundle/vim-sleuth
 	url = https://github.com/tpope/vim-sleuth
+[submodule "bundle/fastfold"]
+	path = bundle/fastfold
+	url = https://github.com/konfekt/fastfold
+[submodule "bundle/vim-easy-align"]
+	path = bundle/vim-easy-align
+	url = https://github.com/junegunn/vim-easy-align

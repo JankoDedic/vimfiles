@@ -6,7 +6,7 @@ filetype plugin indent on
 
 " Appearance =================================================================
 
-set guifont=Monaco:h14:cANSI
+set guifont=Consolas:h14:cANSI
 
 " set columns=90 lines=30
 set guicursor+=n-v-c:blinkon0
@@ -21,12 +21,31 @@ let g:ayucolor="mirage"
 colorscheme ayu
 " set background=dark
 
-set colorcolumn=80
-highlight ColorColumn ctermbg=Gray guibg=Gray
+" set colorcolumn=80
+" highlight ColorColumn ctermbg=Gray guibg=Gray
 
 set cursorline
 autocmd InsertEnter * set nocul
 autocmd InsertLeave * set cul
+
+" This rewires n and N to do the highlighing...
+nnoremap <silent> n   n:call HLNext(0.25)<cr>
+nnoremap <silent> N   N:call HLNext(0.25)<cr>
+
+" EITHER blink the line containing the match...
+function! HLNext (blinktime)
+    hi CursorLine term=bold cterm=bold guibg=LightMagenta
+    " set invcursorline
+    redraw
+    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
+    " set invcursorline
+    colorscheme ayu
+    redraw
+endfunction
+
+if has("gui_running")
+  set belloff=all
+endif
 
 " Basic ======================================================================
 
@@ -66,6 +85,7 @@ set smartcase
 
 set foldmethod=syntax
 set foldlevelstart=99
+let g:fastfold_fold_command_suffixes = []
 nnoremap <s-tab> za
 
 " Type optimizations ===========================================================
@@ -156,15 +176,16 @@ endfunction
 
 function! g:RunCppScript2(script_name)
   let git_repo_root = g:GitRepoRoot()
+  let project_name = reverse(split(git_repo_root, '/'))[0]
   let g:cpp_scripts = {
-      \ 'init': 'cd ' . git_repo_root
+      \ 'init': 'rmdir /S /Q out & cd ' . git_repo_root
       \  . ' && mkdir out && cd out & cmake ..'
       \  . ' -G"Visual Studio 15 2017 Win64"'
-      \  . ' -DCMAKE_TOOLCHAIN_FILE=D:\vcpkg\scripts\buildsystems\vcpkg.cmake',
-      \ 'run': git_repo_root . '/out/Debug/main.exe',
+      \  . ' -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake',
+      \ 'run': git_repo_root . '/out/Debug/' . project_name . '-main.exe',
       \ 'build': 'cmake --build ' . git_repo_root . '/out'
       \        . ' -- /nologo /verbosity:quiet',
-      \ 'test': git_repo_root . '/out/Debug/test.exe',
+      \ 'test': git_repo_root . '/out/Debug/' . project_name . '-tests.exe',
       \ }
   execute '!start cmd /k ' . g:cpp_scripts[a:script_name] . ' & pause & exit'
 endfunction
@@ -179,6 +200,7 @@ nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gl :Glog<CR>
+nnoremap <leader>gp :Gpush<CR>
 
 " Add a space and then dashes to the end of the line (79)
 function! g:EndLineWithDashes()
@@ -206,18 +228,18 @@ function! g:AddBackslashes()
     execute "set virtualedit=" . saved_virtualedit
 endfunction
 
-vnoremap <leader>as :call g:AddBackslashes()<CR>
+vnoremap <leader>am :call g:AddBackslashes()<CR>
 
 function! g:RemoveBackslashes()
     execute 'normal $xdiw'
 endfunction
 
-vnoremap <leader>rs :call g:RemoveBackslashes()<CR>
+vnoremap <leader>dm :call g:RemoveBackslashes()<CR>
 
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_use_caching=0
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/](.git|.hg|.svn|.next|out|node_modules)$',
+    \ 'dir':  '\v[\/](.git|.hg|.svn|.next|out|node_modules|third_party)$',
     \ 'file': '\v\.(exe|so|dll)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
