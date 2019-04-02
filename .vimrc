@@ -186,6 +186,7 @@ function! g:RunCppScript2(script_name)
       \ 'build': 'cmake --build ' . git_repo_root . '/out'
       \        . ' -- /nologo /verbosity:quiet',
       \ 'test': git_repo_root . '/out/Debug/' . project_name . '-tests.exe',
+      \ 'ide': 'start out\' . project_name . '.sln & exit',
       \ }
   execute '!start cmd /k ' . g:cpp_scripts[a:script_name] . ' & pause & exit'
 endfunction
@@ -194,6 +195,8 @@ nnoremap <leader>i :call RunCppScript2('init')<CR><CR>
 nnoremap <leader>r :call RunCppScript2('run')<CR><CR>
 nnoremap <leader>b :call RunCppScript2('build')<CR><CR>
 nnoremap <leader>tt :call RunCppScript2('test')<CR><CR>
+nnoremap <leader>vs :call RunCppScript2('ide')<CR><CR>
+nnoremap <leader>ee :!start explorer .<CR>
 
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gw :Gwrite<CR>
@@ -228,7 +231,7 @@ function! g:AddBackslashes()
     execute "set virtualedit=" . saved_virtualedit
 endfunction
 
-vnoremap <leader>am :call g:AddBackslashes()<CR>
+vnoremap <leader>mm :call g:AddBackslashes()<CR>
 
 function! g:RemoveBackslashes()
     execute 'normal $xdiw'
