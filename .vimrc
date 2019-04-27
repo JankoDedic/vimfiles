@@ -208,8 +208,6 @@ nmap ga <Plug>(EasyAlign)
 
 " Automatically close fugitive buffers (so they don't clutter the buffer list)
 autocmd BufReadPost fugitive://* set bufhidden=delete
-" Show the current branch on the status line
-set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gw :Gwrite<CR>
