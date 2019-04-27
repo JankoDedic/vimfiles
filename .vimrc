@@ -1,14 +1,12 @@
-" Loading plugins ============================================================
+" Pathogen {{{1
 
 execute pathogen#infect()
 syntax on
 filetype plugin indent on
 
-" Appearance =================================================================
+" Appearance {{{1
 
 set guifont=Consolas:h14:cANSI
-
-" set columns=90 lines=30
 set guicursor+=n-v-c:blinkon0
 
 set guioptions-=m
@@ -17,42 +15,22 @@ set guioptions-=r
 set guioptions-=L
 
 set t_Co=256
-let g:ayucolor="mirage"
-colorscheme ayu
-" set background=dark
-
-" set colorcolumn=80
-" highlight ColorColumn ctermbg=Gray guibg=Gray
+set background=light
+colorscheme PaperColor
 
 set cursorline
 autocmd InsertEnter * set nocul
 autocmd InsertLeave * set cul
 
-" This rewires n and N to do the highlighing...
-nnoremap <silent> n   n:call HLNext(0.25)<cr>
-nnoremap <silent> N   N:call HLNext(0.25)<cr>
-
-" EITHER blink the line containing the match...
-function! HLNext (blinktime)
-    hi CursorLine term=bold cterm=bold guibg=LightMagenta
-    " set invcursorline
-    redraw
-    exec 'sleep ' . float2nr(a:blinktime * 1000) . 'm'
-    " set invcursorline
-    colorscheme ayu
-    redraw
-endfunction
-
 if has("gui_running")
   set belloff=all
 endif
 
-" Basic ======================================================================
+" Basic {{{1
 
 set noswapfile
 
 set timeoutlen=1000 ttimeoutlen=0
-set laststatus=2
 
 set encoding=utf-8
 set fileformat=dos
@@ -70,9 +48,9 @@ vnoremap : ;
 
 set backspace=indent,eol,start
 
-set tabstop=2
-set softtabstop=2 expandtab
-set shiftwidth=2
+set tabstop=4
+set softtabstop=4 expandtab
+set shiftwidth=4
 
 set wildmenu
 
@@ -88,11 +66,11 @@ set foldlevelstart=99
 let g:fastfold_fold_command_suffixes = []
 nnoremap <s-tab> za
 
-" Type optimizations ===========================================================
+" Type optimizations {{{1
 
 set formatoptions-=r formatoptions-=c formatoptions-=o
 
-" Code navigation optimizations ================================================
+" Navigation {{{1
 
 " Scroll faster.
 nnoremap <C-e> 3<C-e>
@@ -106,7 +84,7 @@ nnoremap <C-j> <C-w>-
 nnoremap <C-k> <C-w>+
 nnoremap <C-l> <C-w>>
 
-" Leader Commands ==============================================================
+" Leader commands {{{1
 
 let mapleader="\<Space>"
 let maplocalleader="\<Space>"
@@ -114,32 +92,23 @@ let maplocalleader="\<Space>"
 nnoremap <Leader>ev :e ~/vimfiles/.vimrc<CR>
 nnoremap <Leader>sv :w!<CR>:so $MYVIMRC<CR>
 
-nnoremap <Leader>thl :let g:ayucolor="light"<CR>:colorscheme ayu<CR>
-			\ :highlight ColorColumn ctermbg=Gray guibg=Gray<CR>
-nnoremap <Leader>thm :let g:ayucolor="mirage"<CR>:colorscheme ayu<CR>
-			\ :highlight ColorColumn ctermbg=Gray guibg=Gray<CR>
-nnoremap <Leader>thd :let g:ayucolor="dark"<CR>:colorscheme ayu<CR>
-			\ :highlight ColorColumn ctermbg=Gray guibg=Gray<CR>
+nnoremap <Leader>thl :set background=light<CR>
+nnoremap <Leader>thd :set background=dark<CR>
 
-" Buffer Navigation ============================================================
+" TODO
+" - make use of \ in normal mode
+" - semicolon after class, struct, enum etc. closing brace
+" - proper namespace closing with a comment (for cpp)
+
+vnoremap <leader>\ :normal A \<CR>gv:EasyAlign /\\/<CR>
+vnoremap <leader>d\ :normal $xdiw<CR>
+
+" Buffer navigation {{{1
 
 if v:version >= 700
   au BufLeave * let b:winview = winsaveview()
   au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
 endif
-
-" NETRW FIX
-set nohidden
-augroup netrw_buf_hidden_fix
-    autocmd!
-
-    " Set all non-netrw buffers to bufhidden=hide
-    autocmd BufWinEnter *
-                \  if &ft != 'netrw'
-                \|     set bufhidden=hide
-                \| endif
-
-augroup end
 
 set wildchar=<Tab> wildmenu wildmode=full
 set wildcharm=<C-Z>
@@ -147,13 +116,7 @@ set wildcharm=<C-Z>
 " Save if not saved and delete the buffer
 nnoremap <Leader>x :write<CR>:bdelete<CR>
 
-" Plugin Configuration =======================================================
-
-" delimitMate
-" Second argument is an expression, that's why it's in quotes
-inoremap <expr> <CR> delimitMate#WithinEmptyPair() ? "<CR><Esc>O" : "<CR>"
-
-" File-type specific =========================================================
+" File-type specific {{{1
 
 " ftplugin/<filetype>.vim
 " Some filetypes are not built-in and need to be defined, as they are here.
@@ -161,6 +124,8 @@ inoremap <expr> <CR> delimitMate#WithinEmptyPair() ? "<CR><Esc>O" : "<CR>"
 autocmd BufRead,BufNewFile *.txt setlocal filetype=txt
 autocmd BufRead,BufNewFile *.jsx setlocal filetype=javascript
 autocmd BufRead,BufNewFile CMakeLists.txt setlocal filetype=cmake
+
+" Scripts {{{1
 
 function! g:GitRepoRoot()
     let root = split(system('git rev-parse --show-toplevel'), '\n')[0]
@@ -197,6 +162,53 @@ nnoremap <leader>b :call RunCppScript2('build')<CR><CR>
 nnoremap <leader>tt :call RunCppScript2('test')<CR><CR>
 nnoremap <leader>vs :call RunCppScript2('ide')<CR><CR>
 nnoremap <leader>ee :!start explorer .<CR>
+nnoremap <leader>c :!start cmd<CR>
+
+" Plugin configuration {{{1
+" vim-vinegar {{{2
+
+" NETRW FIX
+set nohidden
+augroup netrw_buf_hidden_fix
+    autocmd!
+
+    " Set all non-netrw buffers to bufhidden=hide
+    autocmd BufWinEnter *
+                \  if &ft != 'netrw'
+                \|     set bufhidden=hide
+                \| endif
+
+augroup end
+
+" delimitMate {{{2
+
+" Second argument is an expression, that's why it's in quotes
+inoremap <expr> <CR> delimitMate#WithinEmptyPair() ? "<CR><Esc>O" : "<CR>"
+
+" ctrlp.vim {{{2
+
+let g:ctrlp_show_hidden = 1
+let g:ctrlp_use_caching=0
+let g:ctrlp_custom_ignore = {
+    \ 'dir':  '\v[\/](.git|.hg|.svn|.next|out|node_modules|third_party|build)$',
+    \ 'file': '\v\.(exe|so|dll)$',
+    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
+    \ }
+
+" vim-easy-align {{{2
+
+" Start interactive EasyAlign in visual mode (e.g. vipga)
+xmap ga <Plug>(EasyAlign)
+
+" Start interactive EasyAlign for a motion/text object (e.g. gaip)
+nmap ga <Plug>(EasyAlign)
+
+" vim-fugitive {{{2
+
+" Automatically close fugitive buffers (so they don't clutter the buffer list)
+autocmd BufReadPost fugitive://* set bufhidden=delete
+" Show the current branch on the status line
+set statusline=%<%f\ %h%m%r%{fugitive#statusline()}%=%-14.(%l,%c%V%)\ %P
 
 nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gw :Gwrite<CR>
@@ -204,51 +216,11 @@ nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gl :Glog<CR>
 nnoremap <leader>gp :Gpush<CR>
+nnoremap <leader>gb :silent Gbrowse<CR>
 
-" Add a space and then dashes to the end of the line (79)
-function! g:EndLineWithDashes()
-    let current_line = getline(".")
-    let current_line_length = strlen(current_line)
-    if current_line_length < 78
-        call setline(line("."), current_line . ' ')
-        let num_dashes = 79 - current_line_length - 1
-        execute "normal " . num_dashes . "A-"
-    endif
-endfunction
+" vim-flagship {{{2
 
-nnoremap <leader>- I//<Esc>:call g:EndLineWithDashes()<CR>
-
-" - semicolon after class, struct, enum etc. closing brace
-" also proper namespace closing with a comment
-
-" -----------------------------------------------------------------------------
-" Add backslashes at column 79 of every line of visual selection
-
-function! g:AddBackslashes()
-    let saved_virtualedit = &virtualedit
-    set virtualedit=all
-    execute 'normal 79|i\'
-    execute "set virtualedit=" . saved_virtualedit
-endfunction
-
-vnoremap <leader>mm :call g:AddBackslashes()<CR>
-
-function! g:RemoveBackslashes()
-    execute 'normal $xdiw'
-endfunction
-
-vnoremap <leader>dm :call g:RemoveBackslashes()<CR>
-
-let g:ctrlp_show_hidden = 1
-let g:ctrlp_use_caching=0
-let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/](.git|.hg|.svn|.next|out|node_modules|third_party)$',
-    \ 'file': '\v\.(exe|so|dll)$',
-    \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
-    \ }
-
-" Start interactive EasyAlign in visual mode (e.g. vipga)
-xmap ga <Plug>(EasyAlign)
-
-" Start interactive EasyAlign for a motion/text object (e.g. gaip)
-nmap ga <Plug>(EasyAlign)
+" Recommended settings
+set laststatus=2
+set showtabline=2
+set guioptions-=e
