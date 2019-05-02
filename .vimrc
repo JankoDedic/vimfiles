@@ -223,3 +223,28 @@ nnoremap <leader>gb :silent Gbrowse<CR>
 set laststatus=2
 set showtabline=2
 set guioptions-=e
+
+" LanguageClient-neovim {{{2
+
+let g:LanguageClient_diagnosticsEnable = 0
+" set signcolumn=yes
+
+let g:LanguageClient_serverCommands = {
+  \ 'cpp': ['clangd'],
+  \ }
+
+function! g:PreviewWindowOpened()
+    for nr in range(1, winnr('$'))
+        if getwinvar(nr, "&pvw") == 1
+            " found a preview
+            return 1
+        endif  
+    endfor
+    return 0
+endfunction
+
+" Toggle preview window for documentation
+nnoremap <silent><expr> K g:PreviewWindowOpened()
+  \ ? ":pclose\<CR>"
+  \ : ":call LanguageClient#textDocument_hover()\<CR>"
+nnoremap <silent> gd :call LanguageClient#textDocument_definition()<CR>
