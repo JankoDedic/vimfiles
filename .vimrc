@@ -213,7 +213,7 @@ inoremap <expr> <CR> delimitMate#WithinEmptyPair() ? "<CR><Esc>O" : "<CR>"
 let g:ctrlp_show_hidden = 1
 let g:ctrlp_use_caching=0
 let g:ctrlp_custom_ignore = {
-    \ 'dir':  '\v[\/](.git|.hg|.svn|.next|out|node_modules|third_party|build)$',
+    \ 'dir':  '\v[\/](.git|.hg|.svn|.next|out|node_modules|third_party|build|.clangd)$',
     \ 'file': '\v\.(exe|so|dll)$',
     \ 'link': 'SOME_BAD_SYMBOLIC_LINKS',
     \ }
@@ -257,7 +257,9 @@ if executable('clangd')
 endif
 
 let g:lsp_diagnostics_enabled = 0
+let g:lsp_highlight_references_enabled = 1
 
 " Automatically close quickfix and location lists when you make a choice
 " https://stackoverflow.com/questions/21321357
 autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
+
