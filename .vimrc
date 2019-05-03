@@ -6,7 +6,7 @@ filetype plugin indent on
 
 " Appearance {{{1
 
-set guifont=Consolas:h14:cANSI
+" set guifont=Consolas:h14:cANSI
 set guicursor+=n-v-c:blinkon0
 
 set guioptions-=m
@@ -259,7 +259,6 @@ endif
 let g:lsp_diagnostics_enabled = 0
 let g:lsp_highlight_references_enabled = 1
 
-" Automatically close quickfix and location lists when you make a choice
-" https://stackoverflow.com/questions/21321357
 autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
 
+autocmd FileType cpp,hpp setlocal omnifunc=lsp#complete
