@@ -175,7 +175,7 @@ function! g:RunCppScript(script_name)
   "     \ 'test': git_repo_root . '/out/Debug/' . project_name . '-tests.exe',
   "     \ 'ide': 'start out\' . project_name . '.sln & exit',
   "     \ }
-  execute '!start cmd /k ' . g:cpp_scripts[a:script_name] . ' & pause & exit'
+  execute '!start cmd /c "' . g:cpp_scripts[a:script_name] . ' & pause & exit"'
 endfunction
 
 nnoremap <leader>i :call RunCppScript('generate')<CR><CR>
