@@ -259,6 +259,10 @@ endif
 let g:lsp_diagnostics_enabled = 0
 let g:lsp_highlight_references_enabled = 1
 
+" Preview the found LSP references while hovering
+autocmd FileType qf nnoremap <silent><buffer> j :cn<CR><C-w><C-p>
+autocmd FileType qf nnoremap <silent><buffer> k :cp<CR><C-w><C-p>
+" Close the quickfix window after picking an option
 autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
 
 autocmd FileType c,h,cpp,hpp setlocal omnifunc=lsp#complete
