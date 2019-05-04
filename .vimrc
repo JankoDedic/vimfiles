@@ -261,4 +261,10 @@ let g:lsp_highlight_references_enabled = 1
 
 autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
 
-autocmd FileType cpp,hpp setlocal omnifunc=lsp#complete
+autocmd FileType c,h,cpp,hpp setlocal omnifunc=lsp#complete
+
+" Disable the preview window
+set completeopt-=preview
+
+" Close the preview window upon finalizing completion
+autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
