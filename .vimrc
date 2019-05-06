@@ -237,7 +237,8 @@ nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gc :Gcommit<CR>
 nnoremap <leader>gl :Glog<CR>
 nnoremap <leader>gp :Gpush<CR>
-nnoremap <leader>gb :silent Gbrowse<CR>
+nnoremap <leader>gb :Gbrowse<CR>
+xnoremap <leader>gb :Gbrowse<CR>
 
 " vim-flagship {{{2
 
