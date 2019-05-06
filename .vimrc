@@ -6,7 +6,6 @@ filetype plugin indent on
 
 " Appearance {{{1
 
-" set guifont=Consolas:h14:cANSI
 set guicursor+=n-v-c:blinkon0
 
 set guioptions-=m
