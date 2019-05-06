@@ -132,59 +132,23 @@ function! g:GitRepoRoot()
     return v:shell_error ? '' : root
 endfunction
 
-" function! g:RunCppScript(script_name)
-"     let separator = strlen(git_root) > 0 ? '/' : ''
-"     execute '!start cmd /k "py '
-"         \ . g:GitRepoRoot() . separator . 'scripts/'
-"         \ . a:script_name . '.py" && pause && exit'
-" endfunction
-
-function! g:RunCppScript(script_name)
-  let git_repo_root = g:GitRepoRoot()
-  let project_name = reverse(split(git_repo_root, '/'))[0]
-  let vcpkg_toolchain = 'C:\Users\Janko\vcpkg\scripts\buildsystems\vcpkg.cmake'
-  let g:cpp_scripts = {
-    \ 'generate': 'rmdir /S /Q build & cd ' . git_repo_root
-    \   . ' && mkdir build && cd build'
-    \   . ' && mkdir x64-windows-ninja && cd x64-windows-ninja'
-    \   . ' && cmake ..\..'
-    \   . ' -G Ninja'
-    \   . ' -D CMAKE_EXPORT_COMPILE_COMMANDS=ON'
-    \   . ' -D CMAKE_TOOLCHAIN_FILE=' . vcpkg_toolchain
-    \   . ' && cd ..\..'
-    \   . ' && mklink /H compile_commands.json build\x64-windows-ninja\compile_commands.json'
-    \   . ' && cd build'
-    \   . ' && mkdir x64-windows-vs && cd x64-windows-vs'
-    \   . ' && cmake ..\..'
-    \   . ' -G "Visual Studio 16 2019" -A x64'
-    \   . ' -D CMAKE_TOOLCHAIN_FILE=' . vcpkg_toolchain,
-    \ 'build': 'cmake --build ' . git_repo_root . '/build/x64-windows-ninja',
-    \ 'test': git_repo_root . '\build\x64-windows-ninja\' . project_name . '-tests.exe',
-    \ 'run': git_repo_root . '\build\x64-windows-ninja\' . project_name . '-main.exe',
-    \ 'ide': 'start build\x64-windows-vs\' . project_name . '.sln & exit',
-    \ }
-  " let g:cpp_scripts = {
-  "     \ 'init': 'rmdir /S /Q out & cd ' . git_repo_root
-  "     \  . ' && mkdir out && cd out & cmake ..'
-  "     \  . ' -G"Visual Studio 15 2017 Win64"'
-  "     \  . ' -DCMAKE_TOOLCHAIN_FILE=C:\vcpkg\scripts\buildsystems\vcpkg.cmake',
-  "     \ 'run': git_repo_root . '/out/Debug/' . project_name . '-main.exe',
-  "     \ 'build': 'cmake --build ' . git_repo_root . '/out'
-  "     \        . ' -- /nologo /verbosity:quiet',
-  "     \ 'test': git_repo_root . '/out/Debug/' . project_name . '-tests.exe',
-  "     \ 'ide': 'start out\' . project_name . '.sln & exit',
-  "     \ }
-  execute '!start cmd /c "' . g:cpp_scripts[a:script_name] . ' & pause & exit"'
+function! g:ExecuteCmdScript(script)
+  execute '!start cmd /C "' . a:script . ' & pause & exit"'
 endfunction
 
-nnoremap <leader>i :call RunCppScript('generate')<CR><CR>
-nnoremap <leader>b :call RunCppScript('build')<CR><CR>
-nnoremap <leader>tt :call RunCppScript('test')<CR><CR>
-nnoremap <leader>r :call RunCppScript('run')<CR><CR>
-nnoremap <leader>vs :call RunCppScript('ide')<CR><CR>
+function! g:RunCppScript(script)
+  let git_repo_root = g:GitRepoRoot()
+  call g:ExecuteCmdScript('cd ' . git_repo_root . ' && ' . a:script)
+endfunction
+
+nnoremap <leader>i :call RunCppScript('cmake -P ~/vimfiles/scripts/GenerateProjects.cmake')<CR><CR>
+nnoremap <leader>b :call RunCppScript('cmake -P ~/vimfiles/scripts/Build.cmake')<CR><CR>
+nnoremap <leader>tt :call RunCppScript('cmake -P ~/vimfiles/scripts/Test.cmake')<CR><CR>
+nnoremap <leader>r :call RunCppScript('cmake -P ~/vimfiles/scripts/Run.cmake')<CR><CR>
+nnoremap <leader>vs :call RunCppScript('cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake')<CR><CR>
 
 nnoremap <leader>ee :!start explorer .<CR>
-nnoremap <leader>c :!start cmd<CR>
+nnoremap <leader>c :silent !start cmd<CR>
 
 " Plugin configuration {{{1
 " vim-vinegar {{{2
