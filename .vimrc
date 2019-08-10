@@ -142,10 +142,15 @@ function! g:RunCppScript(script)
 endfunction
 
 nnoremap <leader>i :call RunCppScript('cmake -P ~/vimfiles/scripts/GenerateProjects.cmake')<CR><CR>
-nnoremap <leader>b :call RunCppScript('cmake -P ~/vimfiles/scripts/Build.cmake')<CR><CR>
-nnoremap <leader>tt :call RunCppScript('cmake -P ~/vimfiles/scripts/Test.cmake')<CR><CR>
-nnoremap <leader>r :call RunCppScript('cmake -P ~/vimfiles/scripts/Run.cmake')<CR><CR>
-nnoremap <leader>vs :call RunCppScript('cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake')<CR><CR>
+" nnoremap <leader>b :call RunCppScript('cmake -P ~/vimfiles/scripts/Build.cmake')<CR><CR>
+nnoremap <leader>b :!start /B cmake -P ~/vimfiles/scripts/Build.cmake<CR><CR>
+" nnoremap <leader>tt :call RunCppScript('cmake -P ~/vimfiles/scripts/Test.cmake')<CR><CR>
+" nnoremap <leader>tt :!start cmd /C "cmake -P ~/vimfiles/scripts/Test.cmake & pause & exit"<CR><CR>
+nnoremap <leader>tt :!start /B cmake -P ~/vimfiles/scripts/Test.cmake<CR><CR>
+" nnoremap <leader>r :call RunCppScript('cmake -P ~/vimfiles/scripts/Run.cmake')<CR><CR>
+nnoremap <leader>r :!start /B cmake -P ~/vimfiles/scripts/Run.cmake<CR><CR>
+" nnoremap <leader>vs :call RunCppScript('cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake')<CR><CR>
+nnoremap <leader>vs :!start /B cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake<CR><CR>
 
 nnoremap <leader>ee :!start explorer .<CR>
 nnoremap <leader>c :silent !start cmd<CR>
@@ -169,7 +174,8 @@ augroup end
 " delimitMate {{{2
 
 " Second argument is an expression, that's why it's in quotes
-inoremap <expr> <CR> delimitMate#WithinEmptyPair() ? "<CR><Esc>O" : "<CR>"
+" inoremap <expr> <CR> delimitMate#WithinEmptyPair() ? "<CR><Esc>O" : "<CR>"
+let delimitMate_expand_cr = 1
 
 " ctrlp.vim {{{2
 
@@ -198,7 +204,7 @@ nnoremap <leader>gs :Gstatus<CR>
 nnoremap <leader>gw :Gwrite<CR>
 nnoremap <leader>ge :Gedit<CR>
 nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>gl :Glog<CR>
+nnoremap <leader>gl :0Glog<CR>
 nnoremap <leader>gp :Gpush<CR>
 nnoremap <leader>gb :Gbrowse<CR>
 xnoremap <leader>gb :Gbrowse<CR>
@@ -224,8 +230,8 @@ let g:lsp_diagnostics_enabled = 0
 let g:lsp_highlight_references_enabled = 1
 
 " Preview the found LSP references while hovering
-autocmd FileType qf nnoremap <silent><buffer> j :cn<CR><C-w><C-p>
-autocmd FileType qf nnoremap <silent><buffer> k :cp<CR><C-w><C-p>
+" autocmd FileType qf nnoremap <silent><buffer> j :cn<CR><C-w><C-p>
+" autocmd FileType qf nnoremap <silent><buffer> k :cp<CR><C-w><C-p>
 " Close the quickfix window after picking an option
 autocmd FileType qf nnoremap <buffer> <CR> <CR>:cclose<CR>
 
@@ -236,3 +242,8 @@ set completeopt-=preview
 
 " Close the preview window upon finalizing completion
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
+
+set rtp+=~/.fzf
+
+nnoremap <S-f> :LspDocumentFormat<CR>
+vnoremap <S-f> :LspDocumentRangeFormat<CR>

@@ -19,7 +19,10 @@ execute_process(
     -D CMAKE_TOOLCHAIN_FILE:FILEPATH=${vcpkgToolchain}
 )
 # mklink requires backslashes
-execute_process(COMMAND cmd /C mklink /H compile_commands.json [[build\x64-windows-ninja-debug\compile_commands.json]])
+set(compileCommandsPath build/x64-windows-ninja-debug/compile_commands.json)
+file(TO_NATIVE_PATH "${compileCommandsPath}" compileCommandsPath)
+# execute_process(COMMAND cmd /C mklink /H compile_commands.json [[build\x64-windows-ninja-debug\compile_commands.json]])
+execute_process(COMMAND cmd /C mklink /H compile_commands.json "${compileCommandsPath}")
 
 # Generate Visual Studio project
 execute_process(
