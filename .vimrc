@@ -39,11 +39,9 @@ set nonumber
 set nobackup
 set nohlsearch
 
-nnoremap ; :
-nnoremap : ;
-
-vnoremap ; :
-vnoremap : ;
+" Swap ; and : in Normal, Visual and Operator-pending mode
+noremap ; :
+noremap : ;
 
 set backspace=indent,eol,start
 
