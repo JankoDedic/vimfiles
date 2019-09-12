@@ -65,6 +65,8 @@ set foldlevelstart=99
 let g:fastfold_fold_command_suffixes = []
 nnoremap <s-tab> za
 
+set mouse=a
+
 " Type optimizations {{{1
 
 set formatoptions-=r formatoptions-=c formatoptions-=o
@@ -243,7 +245,5 @@ set completeopt-=preview
 " Close the preview window upon finalizing completion
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-set rtp+=~/.fzf
-
-nnoremap <S-f> :LspDocumentFormat<CR>
-vnoremap <S-f> :LspDocumentRangeFormat<CR>
+" nnoremap <S-f> :LspDocumentFormat<CR>
+" vnoremap <S-f> :LspDocumentRangeFormat<CR>
