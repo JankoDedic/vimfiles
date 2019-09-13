@@ -94,7 +94,7 @@ nnoremap <C-l> <C-w>>
 let mapleader="\<Space>"
 let maplocalleader="\<Space>"
 
-nnoremap <Leader>ev :e ~/vimfiles/.vimrc<CR>
+nnoremap <Leader>ev :edit $MYVIMRC<CR>
 nnoremap <Leader>sv :w<CR>:so $MYVIMRC<CR>:filetype detect<CR>
 " TODO: replace the above with vim-scriptease :Runtime which does it for you
 
