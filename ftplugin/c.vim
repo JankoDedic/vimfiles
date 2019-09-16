@@ -8,7 +8,7 @@ function! PreviewWindowOpened()
     if getwinvar(nr, "&pvw") == 1
       " found a preview
       return 1
-    endif  
+    endif
   endfor
   return 0
 endfunction
