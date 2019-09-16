@@ -164,7 +164,7 @@ nnoremap <leader>r :!start /B cmake -P ~/vimfiles/scripts/Run.cmake<CR><CR>
 nnoremap <leader>vs :!start /B cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake<CR><CR>
 
 nnoremap <leader>ee :!start explorer .<CR>
-nnoremap <leader>c :silent !start cmd<CR>
+nnoremap <Leader>c :silent shell<CR>
 
 " Plugin configuration {{{1
 " vim-vinegar {{{2
