@@ -184,8 +184,6 @@ augroup end
 
 " delimitMate {{{2
 
-" Second argument is an expression, that's why it's in quotes
-" inoremap <expr> <CR> delimitMate#WithinEmptyPair() ? "<CR><Esc>O" : "<CR>"
 let delimitMate_expand_cr = 1
 
 " ctrlp.vim {{{2
