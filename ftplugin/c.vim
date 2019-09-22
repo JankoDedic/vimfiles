@@ -1,6 +1,7 @@
 setlocal tabstop=4
 setlocal softtabstop=4 expandtab
 setlocal shiftwidth=4
+" TODO: How to make (0 not align to parentheses (and just do nothing) ???
 setlocal cindent cinoptions=:0,l1,g0,N-s,E-s,t0,(s
 
 function! PreviewWindowOpened()
