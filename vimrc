@@ -28,8 +28,17 @@ endif
 " from tpope/.vimrc
 command! -bar -nargs=0 Bigger  :let &guifont = substitute(&guifont,'\d\+$','\=submatch(0)+1','')
 command! -bar -nargs=0 Smaller :let &guifont = substitute(&guifont,'\d\+$','\=submatch(0)-1','')
-nnoremap <M-,>        :Smaller<CR>
-nnoremap <M-.>        :Bigger<CR>
+
+" Note: For some reason, these mappings don't work until I :source $MYVIMRC.
+" This is why I added this autocmd: to basically do that for me.
+" nnoremap <A-,> :Smaller<CR>
+" nnoremap <A-.> :Bigger<CR>
+autocmd VimEnter * nnoremap <A-,> :Smaller<CR>
+autocmd VimEnter * nnoremap <A-.> :Bigger<CR>
+
+" Note: The 'winaltkeys' option is not the problem, but I will change the
+" setting anyway because I never use the GUI buttons.
+set winaltkeys=no
 
 " Basic {{{1
 
