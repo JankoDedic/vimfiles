@@ -82,6 +82,7 @@ set mouse=a
 
 " Type optimizations {{{1
 
+set shellslash
 set formatoptions-=r formatoptions-=c formatoptions-=o
 
 " Navigation {{{1
