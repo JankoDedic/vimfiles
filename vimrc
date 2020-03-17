@@ -107,9 +107,6 @@ let maplocalleader="\<Space>"
 nnoremap <Leader>ev :edit $MYVIMRC<CR>
 nnoremap <Leader>sv :write<CR>:Runtime<CR>
 
-nnoremap <Leader>thl :set background=light<CR>
-nnoremap <Leader>thd :set background=dark<CR>
-
 " TODO
 " - make use of \ in normal mode
 " - semicolon after class, struct, enum etc. closing brace
