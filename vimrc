@@ -139,7 +139,6 @@ autocmd BufReadPost *
 " ftplugin/<filetype>.vim
 " Some filetypes are not built-in and need to be defined, as they are here.
 
-autocmd BufRead,BufNewFile *.jsx setlocal filetype=javascript
 autocmd BufRead,BufNewFile CMakeLists.txt setlocal filetype=cmake
 
 " Scripts {{{1
