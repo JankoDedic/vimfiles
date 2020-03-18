@@ -58,6 +58,10 @@ set nohlsearch
 noremap ; :
 noremap : ;
 
+" Swap ' and ` in Normal, Visual and Operator-pending mode
+noremap ' `
+noremap ` '
+
 set backspace=indent,eol,start
 
 set tabstop=2
