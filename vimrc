@@ -134,13 +134,6 @@ autocmd BufReadPost *
   \   exe "normal! g`\"" |
   \ endif
 
-" File-type specific {{{1
-
-" ftplugin/<filetype>.vim
-" Some filetypes are not built-in and need to be defined, as they are here.
-
-autocmd BufRead,BufNewFile CMakeLists.txt setlocal filetype=cmake
-
 " Scripts {{{1
 
 function! g:GitRepoRoot()
