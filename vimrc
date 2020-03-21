@@ -19,8 +19,8 @@ set background=light
 colorscheme PaperColor
 
 set cursorline
-autocmd InsertEnter * set nocul
-autocmd InsertLeave * set cul
+autocmd InsertEnter * set nocursorline
+autocmd InsertLeave * set cursorline
 
 if has("gui_running")
   set belloff=all
