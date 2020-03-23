@@ -125,7 +125,7 @@ set wildchar=<Tab> wildmenu wildmode=full
 set wildcharm=<C-Z>
 
 " Save if not saved and delete the buffer
-nnoremap <Leader>x :update <Bar> bdelete<CR>
+nnoremap <Leader>x :update <Bar> bprevious <Bar> bdelete #<CR>
 
 " :help restore-cursor
 autocmd BufReadPost *
