@@ -100,8 +100,8 @@ nnoremap <C-l> <C-w>>
 
 " Leader commands {{{1
 
-let mapleader="\<Space>"
-let maplocalleader="\<Space>"
+let g:mapleader="\<Space>"
+let g:maplocalleader="\<Space>"
 
 nnoremap <Leader>ev :edit $MYVIMRC<CR>
 nnoremap <Leader>sv :write<CR>:Runtime<CR>
@@ -181,7 +181,7 @@ augroup end
 
 " delimitMate {{{2
 
-let delimitMate_expand_cr = 1
+let g:delimitMate_expand_cr = 1
 
 " ctrlp.vim {{{2
 
