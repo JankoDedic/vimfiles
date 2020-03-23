@@ -75,7 +75,7 @@ set smartcase
 set foldmethod=syntax
 set foldlevelstart=99
 let g:fastfold_fold_command_suffixes = []
-nnoremap <s-tab> za
+nnoremap <S-Tab> za
 
 set mouse=a
 
@@ -111,8 +111,8 @@ nnoremap <Leader>sv :write<CR>:Runtime<CR>
 " - semicolon after class, struct, enum etc. closing brace
 " - proper namespace closing with a comment (for cpp)
 
-vnoremap <leader>\ :normal A \<CR>gv:EasyAlign /\\/<CR>
-vnoremap <leader>d\ :normal $xdiw<CR>
+vnoremap <Leader>\ :normal A \<CR>gv:EasyAlign /\\/<CR>
+vnoremap <Leader>d\ :normal $xdiw<CR>
 
 " Buffer navigation {{{1
 
@@ -149,18 +149,18 @@ function! g:RunCppScript(script)
   call g:ExecuteCmdScript('cd ' . git_repo_root . ' && ' . a:script)
 endfunction
 
-nnoremap <leader>i :call RunCppScript('cmake -P ~/vimfiles/scripts/GenerateProjects.cmake')<CR><CR>
+nnoremap <Leader>i :call RunCppScript('cmake -P ~/vimfiles/scripts/GenerateProjects.cmake')<CR><CR>
 " nnoremap <leader>b :call RunCppScript('cmake -P ~/vimfiles/scripts/Build.cmake')<CR><CR>
-nnoremap <leader>b :!start /B cmake -P ~/vimfiles/scripts/Build.cmake<CR><CR>
+nnoremap <Leader>b :!start /B cmake -P ~/vimfiles/scripts/Build.cmake<CR><CR>
 " nnoremap <leader>tt :call RunCppScript('cmake -P ~/vimfiles/scripts/Test.cmake')<CR><CR>
 " nnoremap <leader>tt :!start cmd /C "cmake -P ~/vimfiles/scripts/Test.cmake & pause & exit"<CR><CR>
-nnoremap <leader>tt :!start /B cmake -P ~/vimfiles/scripts/Test.cmake<CR><CR>
+nnoremap <Leader>tt :!start /B cmake -P ~/vimfiles/scripts/Test.cmake<CR><CR>
 " nnoremap <leader>r :call RunCppScript('cmake -P ~/vimfiles/scripts/Run.cmake')<CR><CR>
-nnoremap <leader>r :!start /B cmake -P ~/vimfiles/scripts/Run.cmake<CR><CR>
+nnoremap <Leader>r :!start /B cmake -P ~/vimfiles/scripts/Run.cmake<CR><CR>
 " nnoremap <leader>vs :call RunCppScript('cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake')<CR><CR>
-nnoremap <leader>vs :!start /B cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake<CR><CR>
+nnoremap <Leader>vs :!start /B cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake<CR><CR>
 
-nnoremap <leader>ee :!start explorer .<CR>
+nnoremap <Leader>ee :!start explorer .<CR>
 nnoremap <Leader>c :silent shell<CR>
 
 " Plugin configuration {{{1
@@ -206,14 +206,14 @@ nmap ga <Plug>(EasyAlign)
 " Automatically close fugitive buffers (so they don't clutter the buffer list)
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
-nnoremap <leader>gs :Gstatus<CR>
-nnoremap <leader>gw :Gwrite<CR>
-nnoremap <leader>ge :Gedit<CR>
-nnoremap <leader>gc :Gcommit<CR>
-nnoremap <leader>gl :0Glog<CR>
-nnoremap <leader>gp :Gpush<CR>
-nnoremap <leader>gb :Gbrowse<CR>
-xnoremap <leader>gb :Gbrowse<CR>
+nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gw :Gwrite<CR>
+nnoremap <Leader>ge :Gedit<CR>
+nnoremap <Leader>gc :Gcommit<CR>
+nnoremap <Leader>gl :0Glog<CR>
+nnoremap <Leader>gp :Gpush<CR>
+nnoremap <Leader>gb :Gbrowse<CR>
+xnoremap <Leader>gb :Gbrowse<CR>
 
 " vim-flagship {{{2
 
