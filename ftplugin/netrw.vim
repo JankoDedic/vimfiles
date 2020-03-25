@@ -1,1 +1,1 @@
-setlocal nobuflisted
+setlocal bufhidden=wipe
