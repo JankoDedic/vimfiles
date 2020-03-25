@@ -124,8 +124,8 @@ endif
 set wildchar=<Tab> wildmenu wildmode=full
 set wildcharm=<C-Z>
 
-" Save if not saved and delete the buffer
-nnoremap <Leader>x :update <Bar> bprevious <Bar> bdelete #<CR>
+" Save if not saved and delete the buffer only (not the window)
+nnoremap <Leader>x :update <Bar> bprevious <Bar> split <Bar> bnext <Bar> bdelete<CR>
 
 " :help restore-cursor
 autocmd BufReadPost *
