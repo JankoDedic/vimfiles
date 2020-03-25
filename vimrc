@@ -167,17 +167,17 @@ nnoremap <Leader>c :silent shell<CR>
 " vim-vinegar {{{2
 
 " NETRW FIX
-set nohidden
-augroup netrw_buf_hidden_fix
-    autocmd!
+" set nohidden
+" augroup netrw_buf_hidden_fix
+"     autocmd!
 
-    " Set all non-netrw buffers to bufhidden=hide
-    autocmd BufWinEnter *
-                \  if &ft != 'netrw'
-                \|     set bufhidden=hide
-                \| endif
+"     " Set all non-netrw buffers to bufhidden=hide
+"     autocmd BufWinEnter *
+"                 \  if &ft != 'netrw'
+"                 \|     set bufhidden=hide
+"                 \| endif
 
-augroup end
+" augroup end
 
 " delimitMate {{{2
 
