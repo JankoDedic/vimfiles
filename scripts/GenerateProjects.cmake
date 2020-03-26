@@ -19,6 +19,8 @@ execute_process(
     -D CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=ON
     -D CMAKE_TOOLCHAIN_FILE:FILEPATH=${vcpkgToolchain}
 )
+
+# Add compile_commands.json to the root of the project.
 # mklink requires backslashes
 set(compileCommandsPath build/compile_commands.json)
 file(TO_NATIVE_PATH "${compileCommandsPath}" compileCommandsPath)
