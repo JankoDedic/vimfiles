@@ -124,8 +124,18 @@ endif
 set wildchar=<Tab> wildmenu wildmode=full
 set wildcharm=<C-Z>
 
-" Save if not saved and delete the buffer only (not the window)
-nnoremap <Leader>x :update <Bar> bprevious <Bar> split <Bar> bnext <Bar> bdelete<CR>
+" Save the buffer (if not saved) and delete the buffer only (not the window).
+function! g:SaveAndDeleteCurrentBuffer()
+  update
+  if len(getbufinfo(#{ buflisted: 1 })) == 1
+    bdelete
+  else
+    bprevious
+    bdelete #
+  endif
+endfunction
+
+nnoremap <Leader>x :call g:SaveAndDeleteCurrentBuffer()<CR>
 
 " :help restore-cursor
 autocmd BufReadPost *
