@@ -96,3 +96,20 @@ autocmd BufRead,BufNewFile valarray setfiletype cpp
 autocmd BufRead,BufNewFile variant setfiletype cpp
 autocmd BufRead,BufNewFile vector setfiletype cpp
 autocmd BufRead,BufNewFile version setfiletype cpp
+autocmd BufRead,BufNewfile xfacet setfiletype cpp
+autocmd BufRead,BufNewfile xhash setfiletype cpp
+autocmd BufRead,BufNewfile xiosbase setfiletype cpp
+autocmd BufRead,BufNewfile xlocale setfiletype cpp
+autocmd BufRead,BufNewfile xlocbuf setfiletype cpp
+autocmd BufRead,BufNewfile xlocinfo setfiletype cpp
+autocmd BufRead,BufNewfile xlocmes setfiletype cpp
+autocmd BufRead,BufNewfile xlocmon setfiletype cpp
+autocmd BufRead,BufNewfile xlocnum setfiletype cpp
+autocmd BufRead,BufNewfile xloctime setfiletype cpp
+autocmd BufRead,BufNewfile xmemory setfiletype cpp
+autocmd BufRead,BufNewfile xstddef setfiletype cpp
+autocmd BufRead,BufNewfile xstring setfiletype cpp
+autocmd BufRead,BufNewfile xtr1common setfiletype cpp
+autocmd BufRead,BufNewfile xtree setfiletype cpp
+autocmd BufRead,BufNewfile xutility setfiletype cpp
+
