@@ -1,4 +1,4 @@
-nmap <M-j> m]]
-nmap <M-k> m[[
-nmap <M-h> <ar
-nmap <M-l> >ar
+nmap <buffer> <M-j> m]]
+nmap <buffer> <M-k> m[[
+nmap <buffer> <M-h> <ar
+nmap <buffer> <M-l> >ar
