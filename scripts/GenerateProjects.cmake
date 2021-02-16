@@ -18,6 +18,7 @@ execute_process(
     -D CMAKE_BUILD_TYPE:STRING=Debug
     -D CMAKE_EXPORT_COMPILE_COMMANDS:BOOL=ON
     -D CMAKE_TOOLCHAIN_FILE:FILEPATH=${vcpkgToolchain}
+    -D CMAKE_PROJECT_INCLUDE=${CMAKE_CURRENT_LIST_DIR}/AddLocalPackagesToPrefix.cmake
 )
 
 # Add compile_commands.json to the root of the project.
