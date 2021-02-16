@@ -130,8 +130,8 @@ set wildcharm=<C-Z>
 " that points into a loaded buffer." (:help bdelete)
 function! g:CloseBuffer()
   update
-  let jumps = filter(getjumplist()[0], "v:val['bufnr'] != bufnr('%')")
-  if len(l:jumps) > 0 && bufloaded(l:jumps[-1]['bufnr'])
+  let jumps = filter(getjumplist()[0], "v:val['bufnr'] != bufnr('%') && bufloaded(v:val['bufnr'])")
+  if len(l:jumps) > 0
     execute("buffer " . l:jumps[-1]['bufnr'])
     bdelete #
   else
