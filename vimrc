@@ -124,18 +124,22 @@ endif
 set wildchar=<Tab> wildmenu wildmode=full
 set wildcharm=<C-Z>
 
-" Save the buffer (if not saved) and delete the buffer only (not the window).
-function! g:SaveAndDeleteCurrentBuffer()
+" Since :bdelete likes to close the window whenever it can, unless it is the
+" last open window, we will try to mirror its alternative behavior. The buffer
+" :bdelete will pick for display is "the most recent entry in the jump list
+" that points into a loaded buffer." (:help bdelete)
+function! g:CloseBuffer()
   update
-  if len(getbufinfo(#{ buflisted: 1 })) == 1
-    bdelete
-  else
-    bprevious
+  let jumps = filter(getjumplist()[0], "v:val['bufnr'] != bufnr('%')")
+  if len(l:jumps) > 0 && bufloaded(l:jumps[-1]['bufnr'])
+    execute("buffer " . l:jumps[-1]['bufnr'])
     bdelete #
+  else
+    bdelete
   endif
 endfunction
 
-nnoremap <Leader>x :call g:SaveAndDeleteCurrentBuffer()<CR>
+nnoremap <Leader>x :call g:CloseBuffer()<CR>
 
 " :help restore-cursor
 autocmd BufReadPost *
