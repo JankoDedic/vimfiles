@@ -106,14 +106,6 @@ let g:maplocalleader="\<Space>"
 nnoremap <Leader>ev :edit $MYVIMRC<CR>
 nnoremap <Leader>sv :write<CR>:Runtime<CR>
 
-" TODO
-" - make use of \ in normal mode
-" - semicolon after class, struct, enum etc. closing brace
-" - proper namespace closing with a comment (for cpp)
-
-vnoremap <Leader>\ :normal A \<CR>gv:EasyAlign /\\/<CR>
-vnoremap <Leader>d\ :normal $xdiw<CR>
-
 " Async version will not work with the subsequent :write.
 " :silent is necessary to remove the confirmation pop-up.
 nnoremap <Leader>f :silent LspDocumentFormatSync<CR>:write<CR>

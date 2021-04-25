@@ -21,3 +21,17 @@ nnoremap <silent><buffer><expr> K PreviewWindowOpened() ? ":pclose\<CR>" : ":Lsp
 setlocal formatprg=clang-format
 
 iabbrev <buffer> /// // ============================================================================
+
+map \ <Plug>(operator-macroify)
+call operator#user#define('macroify', 'Macroify')
+function! Macroify(motion_wiseness)
+  let l:range = line("'[") . "," . (line("']") - 1)
+  execute l:range . 'normal A \'
+  execute l:range . 'EasyAlign /\\/'
+endfunction
+
+map g\ <Plug>(operator-demacroify)
+call operator#user#define('demacroify', 'Demacroify')
+function! Demacroify(motion_wiseness)
+  '[,']substitute/\s*\\$//g
+endfunction
