@@ -114,6 +114,10 @@ nnoremap <Leader>sv :write<CR>:Runtime<CR>
 vnoremap <Leader>\ :normal A \<CR>gv:EasyAlign /\\/<CR>
 vnoremap <Leader>d\ :normal $xdiw<CR>
 
+" Async version will not work with the subsequent :write.
+" :silent is necessary to remove the confirmation pop-up.
+nnoremap <Leader>f :silent LspDocumentFormatSync<CR>:write<CR>
+
 " Buffer navigation {{{1
 
 if v:version >= 700
