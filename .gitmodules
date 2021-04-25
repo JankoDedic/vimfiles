@@ -89,3 +89,6 @@
 [submodule "bundle/vim-eunuch"]
 	path = bundle/vim-eunuch
 	url = https://github.com/tpope/vim-eunuch
+[submodule "bundle/vim-debugger"]
+	path = bundle/vim-debugger
+	url = https://github.com/jankodedic/vim-debugger
