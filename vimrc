@@ -79,6 +79,8 @@ nnoremap <S-Tab> za
 
 set mouse=a
 
+set grepprg=internal
+
 " Type optimizations {{{1
 
 set shellslash
