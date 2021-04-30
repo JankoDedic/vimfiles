@@ -163,7 +163,7 @@ endfunction
 
 nnoremap <Leader>i :call RunCppScript('cmake -P ~/vimfiles/scripts/GenerateProjects.cmake')<CR><CR>
 " nnoremap <leader>b :call RunCppScript('cmake -P ~/vimfiles/scripts/Build.cmake')<CR><CR>
-nnoremap <Leader>b :!start /B cmake -P ~/vimfiles/scripts/Build.cmake<CR><CR>
+" nnoremap <Leader>b :!start /B cmake -P ~/vimfiles/scripts/Build.cmake<CR><CR>
 " nnoremap <leader>tt :call RunCppScript('cmake -P ~/vimfiles/scripts/Test.cmake')<CR><CR>
 " nnoremap <leader>tt :!start cmd /C "cmake -P ~/vimfiles/scripts/Test.cmake & pause & exit"<CR><CR>
 nnoremap <Leader>tt :!start /B cmake -P ~/vimfiles/scripts/Test.cmake<CR><CR>
@@ -173,7 +173,7 @@ nnoremap <Leader>r :!start /B cmake -P ~/vimfiles/scripts/Run.cmake<CR><CR>
 nnoremap <Leader>vs :!start /B cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake<CR><CR>
 
 nnoremap <Leader>ee :!start explorer .<CR>
-nnoremap <Leader>c :silent shell<CR>
+" nnoremap <Leader>c :silent shell<CR>
 
 " Plugin configuration {{{1
 " vim-vinegar {{{2
@@ -263,3 +263,64 @@ autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
 " nnoremap <S-f> :LspDocumentFormat<CR>
 " vnoremap <S-f> :LspDocumentRangeFormat<CR>
+
+" vim-projectionist {{{2
+function! s:CreateProject(preset) abort
+  let presetpath = fnamemodify('~/.janko/presets/', ':p').a:preset.'/.projections.json'
+  call writefile(readfile(presetpath), '.projections.json')
+  let projections = projectionist#json_parse(projectionist#readfile('.projections.json'))
+  %argdelete
+  for key in keys(projections)
+    if key !~ '\*'
+      execute 'argadd '.key
+    endif
+  endfor
+  silent argdo write
+  %argdelete
+endfunction
+
+" TODO: Make .janko/presets/ directory in dotfiles/ repo
+" TODO: Make .janko/tmp/packages/ directory
+" TODO: Implement the commands you can and add mappings (configure, build)
+
+command! -nargs=1 Create call s:CreateProject(<f-args>)
+
+autocmd User ProjectionistActivate call s:activate()
+
+function! s:activate() abort
+  for [root, value] in projectionist#query('configure')
+    execute 'command! Configure Dispatch ' . value
+    break
+  endfor
+  for [root, value] in projectionist#query('build')
+    execute 'command! Build Dispatch' . value
+    break
+  endfor
+endfunction
+
+nnoremap <Leader>c :Configure<CR>
+nnoremap <Leader>b :Build<CR>
+
+function! g:Vcvars() abort
+  let before = systemlist('SET')
+  let after = systemlist('C:\"Program Files (x86)"\"Microsoft Visual Studio"\2019\Community\VC\Auxiliary\Build\vcvars32.bat >nul && SET')
+
+  let beforedict = {}
+  for var in before
+    let [key, value] = split(var, '=')
+    let beforedict[key] = value
+  endfor
+
+  let oldcount = len(environ())
+
+  for var in after
+    let [key, value] = split(var, '=')
+    if !has_key(beforedict, key)
+      call setenv(key, value)
+    endif
+  endfor
+
+  let newcount = len(environ())
+
+  echo (newcount-oldcount) . ' new environment variables added.'
+endfunction
