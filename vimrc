@@ -161,7 +161,7 @@ function! g:RunCppScript(script)
   call g:ExecuteCmdScript('cd ' . git_repo_root . ' && ' . a:script)
 endfunction
 
-nnoremap <Leader>i :call RunCppScript('cmake -P ~/vimfiles/scripts/GenerateProjects.cmake')<CR><CR>
+" nnoremap <Leader>i :call RunCppScript('cmake -P ~/vimfiles/scripts/GenerateProjects.cmake')<CR><CR>
 " nnoremap <leader>b :call RunCppScript('cmake -P ~/vimfiles/scripts/Build.cmake')<CR><CR>
 " nnoremap <Leader>b :!start /B cmake -P ~/vimfiles/scripts/Build.cmake<CR><CR>
 " nnoremap <leader>tt :call RunCppScript('cmake -P ~/vimfiles/scripts/Test.cmake')<CR><CR>
@@ -261,9 +261,6 @@ set completeopt-=preview
 " Close the preview window upon finalizing completion
 autocmd InsertLeave,CompleteDone * if pumvisible() == 0 | pclose | endif
 
-" nnoremap <S-f> :LspDocumentFormat<CR>
-" vnoremap <S-f> :LspDocumentRangeFormat<CR>
-
 " vim-projectionist {{{2
 function! s:CreateProject(preset) abort
   let presetpath = fnamemodify('~/.janko/presets/', ':p').a:preset.'/.projections.json'
@@ -279,10 +276,6 @@ function! s:CreateProject(preset) abort
   %argdelete
 endfunction
 
-" TODO: Make .janko/presets/ directory in dotfiles/ repo
-" TODO: Make .janko/tmp/packages/ directory
-" TODO: Implement the commands you can and add mappings (configure, build)
-
 command! -nargs=1 Create call s:CreateProject(<f-args>)
 
 autocmd User ProjectionistActivate call s:activate()
@@ -293,13 +286,22 @@ function! s:activate() abort
     break
   endfor
   for [root, value] in projectionist#query('build')
-    execute 'command! Build Dispatch' . value
+    execute 'command! Build Dispatch ' . value
+    break
+  endfor
+  for [root, value] in projectionist#query('clean')
+    execute 'command! Clean Dispatch ' . value
+    break
+  endfor
+  for [root, value] in projectionist#query('install')
+    execute 'command! Install Dispatch ' . value
     break
   endfor
 endfunction
 
 nnoremap <Leader>c :Configure<CR>
 nnoremap <Leader>b :Build<CR>
+nnoremap <Leader>i :Install<CR>
 
 function! g:Vcvars() abort
   let before = systemlist('SET')
