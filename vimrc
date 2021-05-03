@@ -198,7 +198,8 @@ let g:delimitMate_expand_cr = 1
 " ctrlp.vim {{{2
 
 let g:ctrlp_show_hidden = 1
-let g:ctrlp_use_caching=0
+let g:ctrlp_use_caching = 0
+let g:ctrlp_working_path_mode = ''
 let g:ctrlp_custom_ignore = {
     \ 'dir':  '\v[\/](.git|.hg|.svn|.next|out|node_modules|third_party|build|.clangd)$',
     \ 'file': '\v\.(exe|so|dll)$',
