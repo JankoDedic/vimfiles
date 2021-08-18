@@ -219,7 +219,7 @@ nmap ga <Plug>(EasyAlign)
 " Automatically close fugitive buffers (so they don't clutter the buffer list)
 autocmd BufReadPost fugitive://* set bufhidden=delete
 
-nnoremap <Leader>gs :Gstatus<CR>
+nnoremap <Leader>gs :Git<CR>
 nnoremap <Leader>gw :Gwrite<CR>
 nnoremap <Leader>ge :Gedit<CR>
 nnoremap <Leader>gc :Gcommit<CR>
