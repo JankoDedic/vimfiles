@@ -224,7 +224,7 @@ nnoremap <Leader>gw :Gwrite<CR>
 nnoremap <Leader>ge :Gedit<CR>
 nnoremap <Leader>gc :Gcommit<CR>
 nnoremap <Leader>gl :0Glog<CR>
-nnoremap <Leader>gp :Gpush<CR>
+nnoremap <Leader>gp :Git push<CR>
 nnoremap <Leader>gb :Gbrowse<CR>
 xnoremap <Leader>gb :Gbrowse<CR>
 
