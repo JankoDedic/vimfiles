@@ -18,8 +18,6 @@ endfunction
 nnoremap <silent><buffer> <C-]> :LspDefinition<CR>
 nnoremap <silent><buffer><expr> K PreviewWindowOpened() ? ":pclose\<CR>" : ":LspHover\<CR>"
 
-setlocal formatprg=clang-format
-
 iabbrev <buffer> /// // ============================================================================
 
 map \ <Plug>(operator-macroify)
