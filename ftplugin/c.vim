@@ -33,3 +33,6 @@ call operator#user#define('demacroify', 'Demacroify')
 function! Demacroify(motion_wiseness)
   '[,']substitute/\s*\\$//g
 endfunction
+
+" Disable vim-lsp signs
+setlocal signcolumn=no
