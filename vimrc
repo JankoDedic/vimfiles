@@ -311,7 +311,7 @@ nnoremap <Leader>t :Test<CR>
 
 function! g:Vcvars() abort
   let before = systemlist('SET')
-  let after = systemlist('C:\"Program Files (x86)"\"Microsoft Visual Studio"\2019\Community\VC\Auxiliary\Build\vcvars32.bat >nul && SET')
+  let after = systemlist('C:\"Program Files"\"Microsoft Visual Studio"\2022\Community\VC\Auxiliary\Build\vcvars64.bat >nul && SET')
 
   let beforedict = {}
   for var in before
