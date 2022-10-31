@@ -15,7 +15,7 @@ set guioptions-=r
 set guioptions-=L
 
 set t_Co=256
-set background=light
+set background=dark
 colorscheme PaperColor
 
 set cursorline
