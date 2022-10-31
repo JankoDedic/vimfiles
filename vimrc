@@ -166,13 +166,13 @@ endfunction
 " nnoremap <Leader>b :!start /B cmake -P ~/vimfiles/scripts/Build.cmake<CR><CR>
 " nnoremap <leader>tt :call RunCppScript('cmake -P ~/vimfiles/scripts/Test.cmake')<CR><CR>
 " nnoremap <leader>tt :!start cmd /C "cmake -P ~/vimfiles/scripts/Test.cmake & pause & exit"<CR><CR>
-nnoremap <Leader>tt :!start /B cmake -P ~/vimfiles/scripts/Test.cmake<CR><CR>
+" nnoremap <Leader>tt :!start /B cmake -P ~/vimfiles/scripts/Test.cmake<CR><CR>
 " nnoremap <leader>r :call RunCppScript('cmake -P ~/vimfiles/scripts/Run.cmake')<CR><CR>
-nnoremap <Leader>r :!start /B cmake -P ~/vimfiles/scripts/Run.cmake<CR><CR>
+" nnoremap <Leader>r :!start /B cmake -P ~/vimfiles/scripts/Run.cmake<CR><CR>
 " nnoremap <leader>vs :call RunCppScript('cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake')<CR><CR>
-nnoremap <Leader>vs :!start /B cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake<CR><CR>
+" nnoremap <Leader>vs :!start /B cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake<CR><CR>
 
-nnoremap <Leader>ee :!start explorer .<CR>
+" nnoremap <Leader>ee :!start explorer .<CR>
 " nnoremap <Leader>c :silent shell<CR>
 
 " Plugin configuration {{{1
@@ -298,11 +298,16 @@ function! s:activate() abort
     execute 'command! Install Dispatch ' . value
     break
   endfor
+  for [root, value] in projectionist#query('test')
+    execute 'command! Test Dispatch ' . value
+    break
+  endfor
 endfunction
 
 nnoremap <Leader>c :Configure<CR>
 nnoremap <Leader>b :Build<CR>
 nnoremap <Leader>i :Install<CR>
+nnoremap <Leader>t :Test<CR>
 
 function! g:Vcvars() abort
   let before = systemlist('SET')
