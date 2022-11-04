@@ -302,12 +302,17 @@ function! s:activate() abort
     execute 'command! Test Dispatch ' . value
     break
   endfor
+  for [root, value] in projectionist#query('main')
+    execute 'command! Main Spawn -wait=always ' . value
+    break
+  endfor
 endfunction
 
 nnoremap <Leader>c :Configure<CR>
 nnoremap <Leader>b :Build<CR>
 nnoremap <Leader>i :Install<CR>
 nnoremap <Leader>t :Test<CR>
+nnoremap <Leader>r :Main<CR>
 
 function! g:Vcvars() abort
   let before = systemlist('SET')
