@@ -313,6 +313,7 @@ nnoremap <Leader>b :Build<CR>
 nnoremap <Leader>i :Install<CR>
 nnoremap <Leader>t :Test<CR>
 nnoremap <Leader>r :Main<CR>
+nnoremap <Leader>a :A<CR>
 
 function! g:Vcvars() abort
   let before = systemlist('SET')
