@@ -299,7 +299,7 @@ function! s:activate() abort
     break
   endfor
   for [root, value] in projectionist#query('test')
-    execute 'command! Test Dispatch ' . value
+    execute 'command! Test Spawn -wait=always ' . value
     break
   endfor
   for [root, value] in projectionist#query('main')
