@@ -114,6 +114,8 @@ nnoremap <Leader>f :silent LspDocumentFormatSync<CR>:write<CR>
 
 " Buffer navigation {{{1
 
+setglobal autowriteall
+
 if v:version >= 700
   au BufLeave * let b:winview = winsaveview()
   au BufEnter * if(exists('b:winview')) | call winrestview(b:winview) | endif
