@@ -242,7 +242,7 @@ set guioptions-=e
 if executable('clangd')
     au User lsp_setup call lsp#register_server({
         \ 'name': 'clangd',
-        \ 'cmd': {server_info->['clangd', '-background-index']},
+        \ 'cmd': {server_info->['clangd', '-background-index', '--compile-commands-dir=build/ninja']},
         \ 'whitelist': ['c', 'cpp', 'h', 'hpp', 'objc', 'objcpp'],
         \ })
 endif
