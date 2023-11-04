@@ -174,7 +174,7 @@ endfunction
 " nnoremap <leader>vs :call RunCppScript('cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake')<CR><CR>
 " nnoremap <Leader>vs :!start /B cmake -P ~/vimfiles/scripts/OpenVisualStudio.cmake<CR><CR>
 
-" nnoremap <Leader>ee :!start explorer .<CR>
+nnoremap <Leader>ee :!start explorer .<CR>
 " nnoremap <Leader>c :silent shell<CR>
 
 " Plugin configuration {{{1
