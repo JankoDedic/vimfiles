@@ -1,5 +1,5 @@
 if has("win32")
-  set guifont=Hack:h13
+  set guifont=Hack:h12
 elseif has("mac")
-  set guifont=Monaco:h13
+  set guifont=Monaco:h12
 endif
