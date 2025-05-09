@@ -36,3 +36,5 @@ endfunction
 
 " Disable vim-lsp signs
 setlocal signcolumn=no
+
+setlocal colorcolumn=80
