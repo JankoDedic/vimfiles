@@ -81,6 +81,8 @@ set mouse=a
 
 set grepprg=internal
 
+set splitright
+
 " Type optimizations {{{1
 
 set shellslash
